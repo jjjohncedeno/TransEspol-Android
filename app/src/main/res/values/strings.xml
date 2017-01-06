@@ -20,4 +20,35 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <!-- Menú de la app -->
+
+    <string name="home">Inicio</string>
+    <string name="where">¿Dónde estoy?</string>
+    <string name="interno">Interno</string>
+    <string name="rutas_ingreso">Rutas Ingreso</string>
+    <string name="rutas_salida">Rutas Salida</string>
+    <string name="alban">Alban Borja</string>
+    <string name="norte">Norte</string>
+    <string name="sur">Sur</string>
+    <string name="acacias">Acacias</string>
+    <string name="duran">Durán</string>
+    <string name="orquideas">Orquideas</string>
+    <string name="perimetral">Perimetras</string>
+    <string name="portete">Portete</string>
+    <string name="norte1">Norte 1</string>
+    <string name="norte2">Norte 2</string>
+    <string name="norte3">Norte 3</string>
+    <string name="comunity">Comunidad</string>
+    <string name="perdidos">Objetos Perdidos</string>
+    <string name="coments">Comentarios</string>
+    <string name="acerca_de">Acerca de</string>
+    <string name="logout">Cerrar Sesión</string>
+
+    <!--Acerca de-->
+    <string name="developers">DESARROLLADORES</string>
+    <string name="developer1">John Cedeño</string>
+    <string name="developer2">Luis Jácome</string>
+    <string name="developer3">Juan García</string>
+    <string name="developer4">Luis Andrade</string>
 </resources>
