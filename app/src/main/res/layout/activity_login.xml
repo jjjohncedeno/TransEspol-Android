@@ -11,6 +11,13 @@
     tools:context="edu.espol.transespol.LoginActivity">
 
     <!-- Login progress -->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView3"
+        android:src="@drawable/logo"
+        android:layout_gravity="center_horizontal" />
+
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
