@@ -12,4 +12,11 @@
     tools:context=".PrincipalActivity"
     tools:showIn="@layout/app_bar_principal">
 
+    <WebView
+        android:id="@+id/activity_main_webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true" />
+
 </RelativeLayout>

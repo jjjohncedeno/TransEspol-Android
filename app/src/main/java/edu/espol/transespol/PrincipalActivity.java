@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 
 public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -21,6 +23,8 @@ public class PrincipalActivity extends AppCompatActivity
     MenuItem nav_rutaS_norte, nav_rutaS_Sur, nav_rutaE_duran;
     Menu menuNav;
     NavigationView navigationView;
+
+    private WebView mWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,12 @@ public class PrincipalActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         setOptionMenu();
+        // Enable Javascript
+        mWebView = (WebView) findViewById(R.id.activity_main_webview);
+        WebSettings webSettings = mWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+
+        mWebView.loadUrl("http://transespol.espol.edu.ec/");
 
     }
 
@@ -121,7 +131,7 @@ public class PrincipalActivity extends AppCompatActivity
 
         switch (id){
             case R.id.nav_inicio:
-                return true;
+                mWebView.loadUrl("http://transespol.espol.edu.ec/");
             case R.id.nav_ubicacion:
                 return true;
             case R.id.nav_interno:
