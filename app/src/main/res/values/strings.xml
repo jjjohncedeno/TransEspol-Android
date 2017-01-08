@@ -51,4 +51,11 @@
     <string name="developer2">Luis Jácome</string>
     <string name="developer3">Juan García</string>
     <string name="developer4">Luis Andrade</string>
+
+    <string name="facebook_app_id">1302351523137099</string>
+    <string name="login_fb">Login con Facebook</string>
+    <string name="login_google">Login con Google</string>
+
+    <string name="google_app_id">AIzaSyDqC4y0Pu3OoOvmfOfViJcpFVty7hiRk2E</string>
+
 </resources>

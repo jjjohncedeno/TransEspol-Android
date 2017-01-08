@@ -29,6 +29,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.cloudrail.si.CloudRail;
+import com.cloudrail.si.interfaces.Profile;
+import com.cloudrail.si.services.Facebook;
+import com.cloudrail.si.services.GooglePlus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,11 +68,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-
+    private Button btnFb;
+    private Button btnGoogle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -93,6 +101,40 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        CloudRail.setAppKey("58725cf1a599df01960f5502");
+
+        final Profile profileGoogle = new GooglePlus(LoginActivity.this, "[clientIdentifier]", "[clientSecret]");
+        // final Profile profile = new GitHub(context, "[clientIdentifier]", "[clientSecret]");
+        // final Profile profile = new Slack(context, "[clientIdentifier]", "[clientSecret]");
+        // final Profile profile = new Instagram(context, "[clientIdentifier]", "[clientSecret]");
+        // ...
+        final Profile profile = new Facebook(LoginActivity.this, "1302351523137099", "76f6ec0953819884f926e1de6295d706");
+
+        btnFb = (Button) findViewById(R.id.loginFb);
+
+        btnFb.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread() {
+                    @Override
+                    public void run() {
+                        String fullName = profile.getFullName();
+
+                        if (fullName != ""){
+                            Intent i = new Intent(LoginActivity.this, PrincipalActivity.class);
+                            startActivity(i);
+                            finish();
+                        }else{
+                            Toast.makeText(LoginActivity.this, "No se ha podido iniciar sesión", Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+                }.start();
+            }
+        });
+
+
     }
 
     private void populateAutoComplete() {

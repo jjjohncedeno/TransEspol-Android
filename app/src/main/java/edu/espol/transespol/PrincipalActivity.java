@@ -3,6 +3,7 @@ package edu.espol.transespol;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.view.SubMenu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -50,7 +51,12 @@ public class PrincipalActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        setOptionMenu();
+        Menu m = navigationView.getMenu();
+        SubMenu topChannelMenu = m.addSubMenu("Top Channels");
+        topChannelMenu.add("Foo");
+        topChannelMenu.add("Bar");
+        topChannelMenu.add("Baz");
+        //setOptionMenu();
         // Enable Javascript
         mWebView = (WebView) findViewById(R.id.activity_main_webview);
         WebSettings webSettings = mWebView.getSettings();
