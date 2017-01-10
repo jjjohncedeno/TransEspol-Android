@@ -57,5 +57,8 @@
     <string name="login_google">Login con Google</string>
 
     <string name="google_app_id">AIzaSyDqC4y0Pu3OoOvmfOfViJcpFVty7hiRk2E</string>
+    <string name="google_maps">AIzaSyD3Dk1I_d5qsuqI88SqLPpQUCRM24XpH1s</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

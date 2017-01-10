@@ -8,6 +8,10 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyD3Dk1I_d5qsuqI88SqLPpQUCRM24XpH1s" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"

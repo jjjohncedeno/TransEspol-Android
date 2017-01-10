@@ -3,6 +3,8 @@ package edu.espol.transespol;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.SubMenu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -16,6 +18,8 @@ import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import java.util.ArrayList;
+
 public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -25,6 +29,8 @@ public class PrincipalActivity extends AppCompatActivity
     Menu menuNav;
     NavigationView navigationView;
 
+    ArrayList<String> rutas_entradas = new ArrayList<String>();
+    ArrayList<String> rutas_salidas = new ArrayList<String>();
     private WebView mWebView;
 
     @Override
@@ -51,12 +57,14 @@ public class PrincipalActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        Menu m = navigationView.getMenu();
-        SubMenu topChannelMenu = m.addSubMenu("Top Channels");
-        topChannelMenu.add("Foo");
-        topChannelMenu.add("Bar");
-        topChannelMenu.add("Baz");
-        //setOptionMenu();
+
+        this.llenarListas();
+        this.setRutas();
+        //topChannelMenu.add("Foo");
+        //topChannelMenu.add("Bar");
+        //topChannelMenu.add("Baz");
+
+        setOptionMenu();
         // Enable Javascript
         mWebView = (WebView) findViewById(R.id.activity_main_webview);
         WebSettings webSettings = mWebView.getSettings();
@@ -66,25 +74,39 @@ public class PrincipalActivity extends AppCompatActivity
 
     }
 
+    public void llenarListas(){
+        rutas_entradas.add("Ruta1");
+        rutas_entradas.add("Ruta2");
+        rutas_entradas.add("Ruta3");
+        rutas_entradas.add("Ruta4");
+
+        rutas_salidas.add("Ruta1");
+        rutas_salidas.add("Ruta2");
+        rutas_salidas.add("Ruta3");
+        rutas_salidas.add("Ruta4");
+    }
+
+    public void setRutas(){
+        Menu m = navigationView.getMenu();
+        SubMenu entrada = m.addSubMenu(0, 3, 2, "Rutas de entrada");
+        SubMenu salida = m.addSubMenu(0, 4, 3, "Rutas de salida");
+
+        for (String i: rutas_entradas){
+            entrada.add("    " + i);
+        }
+
+        for (String i: rutas_salidas){
+            salida.add("    " + i);
+        }
+
+    }
+
     public void setOptionMenu(){
         menuNav = navigationView.getMenu();
         nav_comunidad = menuNav.findItem(R.id.nav_comunidad);
         nav_comunidad_coment = menuNav.findItem(R.id.nav_comunidad_coment);
         nav_comunidad_perdido = menuNav.findItem(R.id.nav_comunidad_perdidos);
-        nav_rutasE = menuNav.findItem(R.id.nav_entrada);
-        nav_rutasS = menuNav.findItem(R.id.nav_salida);
-        nav_rutaS_alban = menuNav.findItem(R.id.nav_salida_alban);
-        nav_rutaS_norte = menuNav.findItem(R.id.nav_salida_norte);
-        nav_rutaS_Sur = menuNav.findItem(R.id.nav_salida_sur);
-        nav_rutaE_alban = menuNav.findItem(R.id.nav_entrada_alban);
-        nav_rutaE_acacia = menuNav.findItem(R.id.nav_entrada_acacia);
-        nav_rutaE_duran = menuNav.findItem(R.id.nav_entrada_duran);
-        nav_rutaE_norte1 = menuNav.findItem(R.id.nav_entrada_norte1);
-        nav_rutaE_norte2 = menuNav.findItem(R.id.nav_entrada_norte2);
-        nav_rutaE_norte3 = menuNav.findItem(R.id.nav_entrada_norte3);
-        nav_rutaE_orquideas = menuNav.findItem(R.id.nav_entrada_orquideas);
-        nav_rutaE_perimetral = menuNav.findItem(R.id.nav_entrada_perimetral);
-        nav_rutaE_portete = menuNav.findItem(R.id.nav_entrada_portete);
+
 
     }
 
@@ -142,44 +164,6 @@ public class PrincipalActivity extends AppCompatActivity
                 return true;
             case R.id.nav_interno:
                 return true;
-            case R.id.nav_entrada:
-                if (!nav_rutasE.isChecked()){
-                    nav_rutaE_alban.setVisible(true);
-                    nav_rutaE_acacia.setVisible(true);
-                    nav_rutaE_duran.setVisible(true);
-                    nav_rutaE_norte1.setVisible(true);
-                    nav_rutaE_norte2.setVisible(true);
-                    nav_rutaE_norte3.setVisible(true);
-                    nav_rutaE_orquideas.setVisible(true);
-                    nav_rutaE_perimetral.setVisible(true);
-                    nav_rutaE_portete.setVisible(true);
-                    nav_rutasE.setChecked(true);
-                }else{
-                    nav_rutaE_alban.setVisible(false);
-                    nav_rutaE_acacia.setVisible(false);
-                    nav_rutaE_duran.setVisible(false);
-                    nav_rutaE_norte1.setVisible(false);
-                    nav_rutaE_norte2.setVisible(false);
-                    nav_rutaE_norte3.setVisible(false);
-                    nav_rutaE_orquideas.setVisible(false);
-                    nav_rutaE_perimetral.setVisible(false);
-                    nav_rutaE_portete.setVisible(false);
-                    nav_rutasE.setChecked(false);
-                }
-                return true;
-            case R.id.nav_salida:
-                if (!nav_rutasS.isChecked()){
-                    nav_rutaS_alban.setVisible(true);
-                    nav_rutaS_norte.setVisible(true);
-                    nav_rutaS_Sur.setVisible(true);
-                    nav_rutasS.setChecked(true);
-                }else{
-                    nav_rutaS_alban.setVisible(false);
-                    nav_rutaS_norte.setVisible(false);
-                    nav_rutaS_Sur.setVisible(false);
-                    nav_rutasS.setChecked(false);
-                }
-                return true;
             case R.id.nav_comunidad:
 
                 if (!nav_comunidad.isChecked()) {
@@ -199,8 +183,56 @@ public class PrincipalActivity extends AppCompatActivity
                 return true;
         }
 
+        for (String i: rutas_entradas){
+            if (item.equals("    " + i)){
+
+                Bundle args = new Bundle();
+
+                Fragment fragment = MapaFragment.newInstance();
+                fragment.setArguments(args);
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager
+                        .beginTransaction()
+                        .commit();
+                return true;
+            }
+        }
+
+        for (String i: rutas_salidas){
+            if (item.equals("    " + i)){
+                Bundle args = new Bundle();
+
+                Fragment fragment = MapaFragment.newInstance();
+                fragment.setArguments(args);
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager
+                        .beginTransaction()
+                        .commit();
+
+                return true;
+            }
+        }
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return ret;
+    }
+
+    private void selectItem(String title) {
+        // Enviar título como arguemento del fragmento
+        Bundle args = new Bundle();
+
+        Fragment fragment = MapaFragment.newInstance();
+        fragment.setArguments(args);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager
+                .beginTransaction()
+                .commit();
+
+        //drawerLayout.closeDrawers(); // Cerrar drawer
+
+        setTitle(title); // Setear título actual
+
     }
 }
