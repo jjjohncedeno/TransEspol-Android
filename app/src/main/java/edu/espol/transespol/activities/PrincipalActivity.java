@@ -1,11 +1,10 @@
-package edu.espol.transespol;
+package edu.espol.transespol.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.view.SubMenu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +18,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import java.util.ArrayList;
+
+import edu.espol.transespol.fragments.MapaFragment;
+import edu.espol.transespol.R;
 
 public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -58,12 +60,6 @@ public class PrincipalActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        this.llenarListas();
-        this.setRutas();
-        //topChannelMenu.add("Foo");
-        //topChannelMenu.add("Bar");
-        //topChannelMenu.add("Baz");
-
         setOptionMenu();
         // Enable Javascript
         mWebView = (WebView) findViewById(R.id.activity_main_webview);
@@ -71,33 +67,6 @@ public class PrincipalActivity extends AppCompatActivity
         webSettings.setJavaScriptEnabled(true);
 
         mWebView.loadUrl("http://transespol.espol.edu.ec/");
-
-    }
-
-    public void llenarListas(){
-        rutas_entradas.add("Ruta1");
-        rutas_entradas.add("Ruta2");
-        rutas_entradas.add("Ruta3");
-        rutas_entradas.add("Ruta4");
-
-        rutas_salidas.add("Ruta1");
-        rutas_salidas.add("Ruta2");
-        rutas_salidas.add("Ruta3");
-        rutas_salidas.add("Ruta4");
-    }
-
-    public void setRutas(){
-        Menu m = navigationView.getMenu();
-        SubMenu entrada = m.addSubMenu(0, 3, 2, "Rutas de entrada");
-        SubMenu salida = m.addSubMenu(0, 4, 3, "Rutas de salida");
-
-        for (String i: rutas_entradas){
-            entrada.add("    " + i);
-        }
-
-        for (String i: rutas_salidas){
-            salida.add("    " + i);
-        }
 
     }
 
@@ -162,8 +131,7 @@ public class PrincipalActivity extends AppCompatActivity
                 mWebView.loadUrl("http://transespol.espol.edu.ec/");
             case R.id.nav_ubicacion:
                 return true;
-            case R.id.nav_interno:
-                return true;
+
             case R.id.nav_comunidad:
 
                 if (!nav_comunidad.isChecked()) {
@@ -177,9 +145,18 @@ public class PrincipalActivity extends AppCompatActivity
                     nav_comunidad.setChecked(false);
                 }
                 ret=false;
+
+            case R.id.nav_comunidad_coment:
+                return true;
+
+            case R.id.nav_comunidad_perdidos:
+                return true;
+
             case R.id.nav_acerca_de:
+
                 return true;
             case R.id.nav_cerrar:
+
                 return true;
         }
 

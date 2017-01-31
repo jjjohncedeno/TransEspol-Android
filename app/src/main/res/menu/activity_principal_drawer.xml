@@ -10,10 +10,16 @@
             android:id="@+id/nav_ubicacion"
             android:icon="@drawable/ic_position"
             android:title="@string/where" />
+
         <item
-            android:id="@+id/nav_interno"
-            android:icon="@drawable/ic_photos"
-            android:title="@string/interno" />
+            android:id="@+id/nav_entrada"
+            android:icon="@drawable/ic_busin"
+            android:title="@string/rutas_ingreso" />
+
+        <item
+            android:id="@+id/nav_salida"
+            android:icon="@drawable/ic_busout"
+            android:title="@string/rutas_salida" />
 
         <item
             android:id="@+id/nav_comunidad"
@@ -37,19 +43,6 @@
             android:icon="@drawable/ic_about"
             android:title="@string/acerca_de" />
     </group>
-    
-        <item android:title="Communicate">
-            <menu>
-                <item
-                    android:id="@+id/nav_share"
-                    android:icon="@drawable/ic_menu_share"
-                    android:title="Share" />
-                <item
-                    android:id="@+id/nav_send"
-                    android:icon="@drawable/ic_menu_send"
-                    android:title="Send" />
-            </menu>
-        </item>
 
         <item
             android:id="@+id/section_config"

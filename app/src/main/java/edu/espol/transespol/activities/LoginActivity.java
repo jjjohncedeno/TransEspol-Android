@@ -1,4 +1,4 @@
-package edu.espol.transespol;
+package edu.espol.transespol.activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -38,6 +38,8 @@ import com.cloudrail.si.services.GooglePlus;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.espol.transespol.R;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
