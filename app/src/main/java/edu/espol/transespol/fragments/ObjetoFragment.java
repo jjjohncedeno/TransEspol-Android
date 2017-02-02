@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import edu.espol.transespol.R;
 
@@ -29,6 +31,9 @@ public class ObjetoFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    ListView objetosLista;
+    ArrayAdapter<String> objetoAdapter;
 
     public ObjetoFragment() {
         // Required empty public constructor
@@ -54,6 +59,7 @@ public class ObjetoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_objeto, container, false);
+        objetosLista = (ListView) root.findViewById(R.id.objetos_lista);
         return root;
     }
 

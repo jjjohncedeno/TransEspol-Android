@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import edu.espol.transespol.fragments.MapaFragment;
 import edu.espol.transespol.R;
 import edu.espol.transespol.fragments.ObjetoFragment;
+import edu.espol.transespol.fragments.WebViewFragment;
 
 public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -43,14 +44,7 @@ public class PrincipalActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -64,21 +58,17 @@ public class PrincipalActivity extends AppCompatActivity
         setOptionMenu();
         // Enable Javascript
 
-        ObjetoFragment leadsFragment = (ObjetoFragment)
+        WebViewFragment leadsFragment = (WebViewFragment)
                 getSupportFragmentManager().findFragmentById(R.id.principal_contents);
 
         if (leadsFragment == null) {
-            leadsFragment = ObjetoFragment.newInstance();
+            leadsFragment = WebViewFragment.newInstance();
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.principal_contents, leadsFragment)
                     .commit();
         }
 
-        mWebView = (WebView) findViewById(R.id.activity_main_webview);
-        WebSettings webSettings = mWebView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
 
-        mWebView.loadUrl("http://transespol.espol.edu.ec/");
 
     }
 
@@ -140,7 +130,16 @@ public class PrincipalActivity extends AppCompatActivity
 
         switch (id){
             case R.id.nav_inicio:
-                mWebView.loadUrl("http://transespol.espol.edu.ec/");
+                WebViewFragment leadsFragment = (WebViewFragment)
+                        getSupportFragmentManager().findFragmentById(R.id.principal_contents);
+
+                if (leadsFragment == null) {
+                    leadsFragment = WebViewFragment.newInstance();
+                    getSupportFragmentManager().beginTransaction()
+                            .add(R.id.principal_contents, leadsFragment)
+                            .commit();
+                }
+                return true;
             case R.id.nav_ubicacion:
                 return true;
 
