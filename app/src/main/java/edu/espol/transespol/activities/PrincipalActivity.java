@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 import edu.espol.transespol.fragments.MapaFragment;
 import edu.espol.transespol.R;
+import edu.espol.transespol.fragments.ObjetoFragment;
 
 public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -62,6 +63,17 @@ public class PrincipalActivity extends AppCompatActivity
 
         setOptionMenu();
         // Enable Javascript
+
+        ObjetoFragment leadsFragment = (ObjetoFragment)
+                getSupportFragmentManager().findFragmentById(R.id.principal_contents);
+
+        if (leadsFragment == null) {
+            leadsFragment = ObjetoFragment.newInstance();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.principal_contents, leadsFragment)
+                    .commit();
+        }
+
         mWebView = (WebView) findViewById(R.id.activity_main_webview);
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
