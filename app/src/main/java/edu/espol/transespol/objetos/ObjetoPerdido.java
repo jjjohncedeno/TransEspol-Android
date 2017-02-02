@@ -12,9 +12,8 @@ public class ObjetoPerdido {
     private Date fechaPerdido;
     private String lugarEncontrado;
 
-    public ObjetoPerdido(String descripcion, Date fechaPerdido, String id, String lugarEncontrado, String nombre) {
+    public ObjetoPerdido(String descripcion, String id, String lugarEncontrado, String nombre) {
         this.descripcion = descripcion;
-        this.fechaPerdido = fechaPerdido;
         this.id = id;
         this.lugarEncontrado = lugarEncontrado;
         this.nombre = nombre;

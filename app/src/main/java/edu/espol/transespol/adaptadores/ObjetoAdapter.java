@@ -45,7 +45,7 @@ public class ObjetoAdapter extends ArrayAdapter<ObjetoPerdido> {
         ObjetoPerdido op = getItem(position);
 
         // Setup.
-        //Glide.with(getContext()).load(lead.getImage()).into(avatar);
+        //Glide.with(getContext()).load(op.getImage()).into(avatar);
         name.setText(op.getNombre());
         mensaje.setText(op.getDescripcion());
 

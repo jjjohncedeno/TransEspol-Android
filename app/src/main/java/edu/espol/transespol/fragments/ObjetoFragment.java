@@ -11,11 +11,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import edu.espol.transespol.R;
+import edu.espol.transespol.Repositories.ObjetoPerdidoRepository;
+import edu.espol.transespol.adaptadores.ObjetoAdapter;
+import edu.espol.transespol.objetos.ObjetoPerdido;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ObjetoFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link ObjetoFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -30,10 +32,9 @@ public class ObjetoFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
 
     ListView objetosLista;
-    ArrayAdapter<String> objetoAdapter;
+    ArrayAdapter<ObjetoPerdido> objetoAdapter;
 
     public ObjetoFragment() {
         // Required empty public constructor
@@ -60,45 +61,16 @@ public class ObjetoFragment extends Fragment {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_objeto, container, false);
         objetosLista = (ListView) root.findViewById(R.id.objetos_lista);
+        // Inicializar el adaptador con la fuente de datos.
+        objetoAdapter = new ObjetoAdapter(getActivity(),
+                ObjetoPerdidoRepository.getInstance().getLeads());
+
+        //Relacionando la lista con el adaptador
+        objetosLista.setAdapter(objetoAdapter);
+
         return root;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 }

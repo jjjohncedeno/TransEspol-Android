@@ -58,13 +58,13 @@ public class PrincipalActivity extends AppCompatActivity
         setOptionMenu();
         // Enable Javascript
 
-        WebViewFragment leadsFragment = (WebViewFragment)
+        ObjetoFragment nuevoFragment = (ObjetoFragment)
                 getSupportFragmentManager().findFragmentById(R.id.principal_contents);
 
-        if (leadsFragment == null) {
-            leadsFragment = WebViewFragment.newInstance();
+        if (nuevoFragment == null) {
+            nuevoFragment = ObjetoFragment.newInstance();
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.principal_contents, leadsFragment)
+                    .add(R.id.principal_contents, nuevoFragment)
                     .commit();
         }
 
@@ -161,6 +161,15 @@ public class PrincipalActivity extends AppCompatActivity
                 return true;
 
             case R.id.nav_comunidad_perdidos:
+                ObjetoFragment nuevoFragment = (ObjetoFragment)
+                        getSupportFragmentManager().findFragmentById(R.id.principal_contents);
+
+                if (nuevoFragment == null) {
+                    nuevoFragment = ObjetoFragment.newInstance();
+                    getSupportFragmentManager().beginTransaction()
+                            .add(R.id.principal_contents, nuevoFragment)
+                            .commit();
+                }
                 return true;
 
             case R.id.nav_acerca_de:
