@@ -1,7 +1,5 @@
 package edu.espol.transespol.fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,18 +9,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import edu.espol.transespol.R;
-import edu.espol.transespol.Repositories.ObjetoPerdidoRepository;
-import edu.espol.transespol.adaptadores.ObjetoAdapter;
-import edu.espol.transespol.objetos.ObjetoPerdido;
+import edu.espol.transespol.Repositories.ComentarioRepository;
+import edu.espol.transespol.adaptadores.ComentarioAdapter;
+import edu.espol.transespol.objetos.Comentario;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * to handle interaction events.
- * Use the {@link ObjetoFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Created by john on 5/02/17.
  */
-public class ObjetoFragment extends Fragment {
+public class ComentarioFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,16 +27,16 @@ public class ObjetoFragment extends Fragment {
     private String mParam2;
 
 
-    ListView objetosLista;
-    ArrayAdapter<ObjetoPerdido> objetoAdapter;
+    ListView mensajesLista;
+    ArrayAdapter<Comentario> comentarioAdapter;
 
-    public ObjetoFragment() {
+    public ComentarioFragment() {
         // Required empty public constructor
     }
 
     // TODO: Rename and change types and number of parameters
-    public static ObjetoFragment newInstance() {
-        ObjetoFragment fragment = new ObjetoFragment();
+    public static ComentarioFragment newInstance() {
+        ComentarioFragment fragment = new ComentarioFragment();
         return fragment;
     }
 
@@ -59,18 +53,15 @@ public class ObjetoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_objetos, container, false);
-        objetosLista = (ListView) root.findViewById(R.id.objetos_lista);
+        View root = inflater.inflate(R.layout.frragmen_comentario, container, false);
+        mensajesLista = (ListView) root.findViewById(R.id.objetos_lista);
         // Inicializar el adaptador con la fuente de datos.
-        objetoAdapter = new ObjetoAdapter(getActivity(),
-                ObjetoPerdidoRepository.getInstance().getLeads());
+        comentarioAdapter = new ComentarioAdapter(getActivity(),
+                ComentarioRepository.getInstance().getLeads());
 
         //Relacionando la lista con el adaptador
-        objetosLista.setAdapter(objetoAdapter);
+        mensajesLista.setAdapter(comentarioAdapter);
 
         return root;
     }
-
-
-
 }

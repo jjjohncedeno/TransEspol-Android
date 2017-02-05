@@ -19,6 +19,7 @@ import android.webkit.WebView;
 
 import java.util.ArrayList;
 
+import edu.espol.transespol.fragments.ComentarioFragment;
 import edu.espol.transespol.fragments.MapaFragment;
 import edu.espol.transespol.R;
 import edu.espol.transespol.fragments.ObjetoFragment;
@@ -158,6 +159,16 @@ public class PrincipalActivity extends AppCompatActivity
                 ret=false;
 
             case R.id.nav_comunidad_coment:
+                ComentarioFragment comentarioFragment = (ComentarioFragment)
+                        getSupportFragmentManager().findFragmentById(R.id.principal_contents);
+
+                if (comentarioFragment == null) {
+                    comentarioFragment = ComentarioFragment.newInstance();
+                    getSupportFragmentManager().beginTransaction()
+                            .add(R.id.principal_contents, comentarioFragment)
+                            .commit();
+                }
+
                 return true;
 
             case R.id.nav_comunidad_perdidos:
@@ -173,7 +184,15 @@ public class PrincipalActivity extends AppCompatActivity
                 return true;
 
             case R.id.nav_acerca_de:
+                ObjetoFragment acercaFragment = (ObjetoFragment)
+                        getSupportFragmentManager().findFragmentById(R.id.principal_contents);
 
+                if (acercaFragment == null) {
+                    acercaFragment = ObjetoFragment.newInstance();
+                    getSupportFragmentManager().beginTransaction()
+                            .add(R.id.principal_contents, acercaFragment)
+                            .commit();
+                }
                 return true;
             case R.id.nav_cerrar:
 
