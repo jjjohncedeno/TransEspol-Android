@@ -1,5 +1,6 @@
 package edu.espol.transespol.activities;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -24,6 +25,7 @@ import edu.espol.transespol.fragments.AcercaDeFragment;
 import edu.espol.transespol.fragments.ComentarioFragment;
 import edu.espol.transespol.fragments.MapaFragment;
 import edu.espol.transespol.R;
+import edu.espol.transespol.fragments.MiUbicaionFragment;
 import edu.espol.transespol.fragments.ObjetoFragment;
 import edu.espol.transespol.fragments.RutaEntradaFragment;
 import edu.espol.transespol.fragments.RutaSalidaFragment;
@@ -167,6 +169,12 @@ public class PrincipalActivity extends AppCompatActivity
                 }*/
                 return true;
             case R.id.nav_ubicacion:
+                Fragment fragmentUbicacio = new MiUbicaionFragment();
+                fm = getSupportFragmentManager();
+                FragmentTransaction transactionUbicacion = fm.beginTransaction();
+                transactionUbicacion.replace(R.id.principal_contents, fragmentUbicacio);
+                transactionUbicacion.commit();
+
                 return true;
 
             case R.id.nav_comunidad_coment:
@@ -176,15 +184,7 @@ public class PrincipalActivity extends AppCompatActivity
                 FragmentTransaction transactionComen = fm.beginTransaction();
                 transactionComen.replace(R.id.principal_contents, fragmentComen);
                 transactionComen.commit();
-                /*ComentarioFragment comentarioFragment = (ComentarioFragment)
-                        getSupportFragmentManager().findFragmentById(R.id.principal_contents);
 
-                if (comentarioFragment == null) {
-                    comentarioFragment = ComentarioFragment.newInstance();
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.principal_contents, comentarioFragment)
-                            .commit();
-                }*/
 
                 return true;
 
@@ -224,7 +224,9 @@ public class PrincipalActivity extends AppCompatActivity
                 }*/
                 return true;
             case R.id.nav_cerrar:
+                Intent i = new Intent(this, LoginActivity.class);
 
+                startActivity(i);
                 return true;
 
             case R.id.nav_entrada:

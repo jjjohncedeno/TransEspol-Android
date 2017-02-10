@@ -29,4 +29,12 @@ public class Comentario {
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 }

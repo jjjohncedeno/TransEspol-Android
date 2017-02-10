@@ -9,11 +9,13 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -25,6 +27,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import edu.espol.transespol.R;
 import edu.espol.transespol.Repositories.ComentarioRepository;
@@ -47,8 +51,8 @@ public class ComentarioFragment extends Fragment {
 
 
     ListView mensajesLista;
-    ArrayAdapter<Comentario> comentarioAdapter;
-    ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
+    static ArrayAdapter<Comentario> comentarioAdapter;
+    static ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
     FloatingActionButton btnAdd;
 
     String url = "http://transespol.herokuapp.com/api/comentarios";
@@ -73,7 +77,7 @@ public class ComentarioFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragmen_comentario, container, false);
@@ -90,19 +94,20 @@ public class ComentarioFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext()  );
-                builder.setTitle("Title");
+                builder.setTitle("Escribir comentario");
 
                 // Set up the input
                 final EditText input = new EditText(getContext());
                 // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                input.setSingleLine(false);
+                input.setImeOptions(EditorInfo.IME_FLAG_NO_ENTER_ACTION);
                 builder.setView(input);
 
                 // Set up the buttons
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        postComentario(input.getText().toString());
                         Toast.makeText(getContext(), input.getText().toString(), Toast.LENGTH_LONG).show();
                     }
                 });
@@ -147,10 +152,11 @@ public class ComentarioFragment extends Fragment {
             JSONArray objetos = new JSONArray(json);
             for(int i=0;i<objetos.length();i++){
                 JSONObject jo = objetos.getJSONObject(i);
-                String id = jo.getString("_id");
+
                 String nombre = jo.getString("nombre");
                 String descripcion = jo.getString("descripcion");
-                this.comentarios.add(new Comentario(descripcion, id, nombre));
+                this.comentarios.add(new Comentario(descripcion, "1234", nombre));
+
             }
 
             comentarioAdapter.notifyDataSetChanged();
@@ -160,6 +166,38 @@ public class ComentarioFragment extends Fragment {
         }
     }
 
-    
+    private void postComentario(String mensaje){
+        final String username = "jjcedeno";
+        final String coment = mensaje;
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        ComentarioFragment.comentarios.add(new Comentario(coment, "1231", "jjcedeno"));
+                        ComentarioFragment.comentarioAdapter.notifyDataSetChanged();
+                        //Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(),error.toString(),Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("nombre",username);
+                params.put("descripcion",coment);
+                return params;
+            }
+
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+    }
 
 }

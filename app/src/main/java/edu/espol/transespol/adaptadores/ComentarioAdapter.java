@@ -46,7 +46,7 @@ public class ComentarioAdapter extends ArrayAdapter<Comentario> {
 
         // Setup.
         //Glide.with(getContext()).load(op.getImage()).into(avatar);
-        name.setText(op.getId());
+        name.setText(op.getNombre());
         mensaje.setText(op.getMensaje());
 
         return convertView;
