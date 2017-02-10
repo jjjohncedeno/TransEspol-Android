@@ -30,6 +30,9 @@
             android:name=".activities.LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
+            android:name=".activities.DetallesActivity"
+            android:label="@string/detalles" />
+        <activity
             android:name=".activities.PrincipalActivity"
             android:label="@string/title_activity_principal"
             android:theme="@style/AppTheme.NoActionBar" />

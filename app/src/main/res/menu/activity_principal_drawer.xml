@@ -21,39 +21,39 @@
             android:icon="@drawable/ic_busout"
             android:title="@string/rutas_salida" />
 
-        <item
-            android:id="@+id/nav_comunidad"
-            android:checked="false"
-            android:icon="@drawable/ic_communities"
-            android:title="@string/comunity" />
-        <!--Submenu comunidad -->
-        <item
-            android:id="@+id/nav_comunidad_perdidos"
-            android:icon="@drawable/ic_menu_send"
-            android:visible="false"
-            android:title="@string/perdidos" />
-        <item
-            android:id="@+id/nav_comunidad_coment"
-            android:icon="@drawable/ic_menu_send"
-            android:visible="false"
-            android:title="@string/coments" />
-
-        <item
-            android:id="@+id/nav_acerca_de"
-            android:icon="@drawable/ic_about"
-            android:title="@string/acerca_de" />
     </group>
 
-        <item
-            android:id="@+id/section_config"
-            android:title="@string/action_settings">
-            <menu>
-                <item
-                    android:id="@+id/nav_cerrar"
-                    android:icon="@drawable/ic_logout"
-                    android:title="@string/logout" />
-            </menu>
-        </item>
+    <item
+        android:id="@+id/section_comun"
+        android:title="@string/comunity">
+        <menu>
+            <item
+                android:id="@+id/nav_comunidad_perdidos"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/perdidos" />
+
+            <item
+                android:id="@+id/nav_comunidad_coment"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/coments" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/section_config"
+        android:title="@string/action_settings">
+        <menu>
+            <item
+                android:id="@+id/nav_acerca_de"
+                android:icon="@drawable/ic_about"
+                android:title="@string/acerca_de" />
+
+            <item
+                android:id="@+id/nav_cerrar"
+                android:icon="@drawable/ic_logout"
+                android:title="@string/logout" />
+        </menu>
+    </item>
 
 
 

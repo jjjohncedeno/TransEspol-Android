@@ -1,5 +1,6 @@
 package edu.espol.transespol.activities;
 
+import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,6 +20,7 @@ import android.webkit.WebView;
 
 import java.util.ArrayList;
 
+import edu.espol.transespol.fragments.AcercaDeFragment;
 import edu.espol.transespol.fragments.ComentarioFragment;
 import edu.espol.transespol.fragments.MapaFragment;
 import edu.espol.transespol.R;
@@ -37,6 +39,7 @@ public class PrincipalActivity extends AppCompatActivity
     ArrayList<String> rutas_entradas = new ArrayList<String>();
     ArrayList<String> rutas_salidas = new ArrayList<String>();
     private WebView mWebView;
+    FragmentManager fm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,16 +61,20 @@ public class PrincipalActivity extends AppCompatActivity
 
         setOptionMenu();
         // Enable Javascript
-
-        ObjetoFragment nuevoFragment = (ObjetoFragment)
+        Fragment fragment = new WebViewFragment();
+        fm = getSupportFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.principal_contents, fragment);
+        transaction.commit();
+        /*WebViewFragment nuevoFragment = (WebViewFragment)
                 getSupportFragmentManager().findFragmentById(R.id.principal_contents);
 
         if (nuevoFragment == null) {
-            nuevoFragment = ObjetoFragment.newInstance();
+            nuevoFragment = WebViewFragment.newInstance();
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.principal_contents, nuevoFragment)
                     .commit();
-        }
+        }*/
 
 
 
@@ -75,7 +82,6 @@ public class PrincipalActivity extends AppCompatActivity
 
     public void setOptionMenu(){
         menuNav = navigationView.getMenu();
-        nav_comunidad = menuNav.findItem(R.id.nav_comunidad);
         nav_comunidad_coment = menuNav.findItem(R.id.nav_comunidad_coment);
         nav_comunidad_perdido = menuNav.findItem(R.id.nav_comunidad_perdidos);
 
@@ -131,102 +137,93 @@ public class PrincipalActivity extends AppCompatActivity
 
         switch (id){
             case R.id.nav_inicio:
-                WebViewFragment leadsFragment = (WebViewFragment)
+
+                /*Fragment newFragment = new WebViewFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+// Replace whatever is in the fragment_container view with this fragment,
+// and add the transaction to the back stack if needed
+                transaction.replace(R.id.principal_contents, newFragment);
+                transaction.addToBackStack(null);
+
+// Commit the transaction
+                transaction.commit();*/
+                Fragment fragment = new WebViewFragment();
+                fm = getSupportFragmentManager();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.principal_contents, fragment);
+                transaction.commit();
+
+                /*WebViewFragment leadsFragment = (WebViewFragment)
                         getSupportFragmentManager().findFragmentById(R.id.principal_contents);
 
                 if (leadsFragment == null) {
                     leadsFragment = WebViewFragment.newInstance();
                     getSupportFragmentManager().beginTransaction()
-                            .add(R.id.principal_contents, leadsFragment)
+                            .replace(R.id.principal_contents, leadsFragment)
                             .commit();
-                }
+                }*/
                 return true;
             case R.id.nav_ubicacion:
                 return true;
 
-            case R.id.nav_comunidad:
-
-                if (!nav_comunidad.isChecked()) {
-                    nav_comunidad_coment.setVisible(true);
-                    nav_comunidad_perdido.setVisible(true);
-                    nav_comunidad.setChecked(true);
-                }
-                else{
-                    nav_comunidad_coment.setVisible(false);
-                    nav_comunidad_perdido.setVisible(false);
-                    nav_comunidad.setChecked(false);
-                }
-                ret=false;
-
             case R.id.nav_comunidad_coment:
-                ComentarioFragment comentarioFragment = (ComentarioFragment)
+
+                Fragment fragmentComen = new ComentarioFragment();
+                fm = getSupportFragmentManager();
+                FragmentTransaction transactionComen = fm.beginTransaction();
+                transactionComen.replace(R.id.principal_contents, fragmentComen);
+                transactionComen.commit();
+                /*ComentarioFragment comentarioFragment = (ComentarioFragment)
                         getSupportFragmentManager().findFragmentById(R.id.principal_contents);
 
                 if (comentarioFragment == null) {
                     comentarioFragment = ComentarioFragment.newInstance();
                     getSupportFragmentManager().beginTransaction()
-                            .add(R.id.principal_contents, comentarioFragment)
+                            .replace(R.id.principal_contents, comentarioFragment)
                             .commit();
-                }
+                }*/
 
                 return true;
 
             case R.id.nav_comunidad_perdidos:
-                ObjetoFragment nuevoFragment = (ObjetoFragment)
+                Fragment fragmentPerd = new ObjetoFragment();
+                fm = getSupportFragmentManager();
+                FragmentTransaction transactionPer = fm.beginTransaction();
+                transactionPer.replace(R.id.principal_contents, fragmentPerd);
+                transactionPer.commit();
+
+                /*ObjetoFragment nuevoFragment = (ObjetoFragment)
                         getSupportFragmentManager().findFragmentById(R.id.principal_contents);
 
                 if (nuevoFragment == null) {
                     nuevoFragment = ObjetoFragment.newInstance();
                     getSupportFragmentManager().beginTransaction()
-                            .add(R.id.principal_contents, nuevoFragment)
+                            .replace(R.id.principal_contents, nuevoFragment)
                             .commit();
-                }
+                }*/
                 return true;
 
             case R.id.nav_acerca_de:
-                ObjetoFragment acercaFragment = (ObjetoFragment)
+                Fragment fragmentAcerca = new AcercaDeFragment();
+                fm = getSupportFragmentManager();
+                FragmentTransaction transactionAcerca = fm.beginTransaction();
+                transactionAcerca.replace(R.id.principal_contents, fragmentAcerca);
+                transactionAcerca.commit();
+
+                /*ObjetoFragment acercaFragment = (ObjetoFragment)
                         getSupportFragmentManager().findFragmentById(R.id.principal_contents);
 
                 if (acercaFragment == null) {
                     acercaFragment = ObjetoFragment.newInstance();
                     getSupportFragmentManager().beginTransaction()
-                            .add(R.id.principal_contents, acercaFragment)
+                            .replace(R.id.principal_contents, acercaFragment)
                             .commit();
-                }
+                }*/
                 return true;
             case R.id.nav_cerrar:
 
                 return true;
-        }
-
-        for (String i: rutas_entradas){
-            if (item.equals("    " + i)){
-
-                Bundle args = new Bundle();
-
-                Fragment fragment = MapaFragment.newInstance();
-                fragment.setArguments(args);
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager
-                        .beginTransaction()
-                        .commit();
-                return true;
-            }
-        }
-
-        for (String i: rutas_salidas){
-            if (item.equals("    " + i)){
-                Bundle args = new Bundle();
-
-                Fragment fragment = MapaFragment.newInstance();
-                fragment.setArguments(args);
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager
-                        .beginTransaction()
-                        .commit();
-
-                return true;
-            }
         }
 
 
