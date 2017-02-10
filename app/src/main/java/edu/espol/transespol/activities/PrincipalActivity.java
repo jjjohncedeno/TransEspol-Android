@@ -25,6 +25,8 @@ import edu.espol.transespol.fragments.ComentarioFragment;
 import edu.espol.transespol.fragments.MapaFragment;
 import edu.espol.transespol.R;
 import edu.espol.transespol.fragments.ObjetoFragment;
+import edu.espol.transespol.fragments.RutaEntradaFragment;
+import edu.espol.transespol.fragments.RutaSalidaFragment;
 import edu.espol.transespol.fragments.WebViewFragment;
 
 public class PrincipalActivity extends AppCompatActivity
@@ -223,6 +225,22 @@ public class PrincipalActivity extends AppCompatActivity
                 return true;
             case R.id.nav_cerrar:
 
+                return true;
+
+            case R.id.nav_entrada:
+                Fragment fragmentEntrada = new RutaEntradaFragment();
+                fm = getSupportFragmentManager();
+                FragmentTransaction transactionEntrada = fm.beginTransaction();
+                transactionEntrada.replace(R.id.principal_contents, fragmentEntrada);
+                transactionEntrada.commit();
+                return true;
+
+            case R.id.nav_salida:
+                Fragment fragmentSalida = new RutaSalidaFragment();
+                fm = getSupportFragmentManager();
+                FragmentTransaction transactionSalida = fm.beginTransaction();
+                transactionSalida.replace(R.id.principal_contents, fragmentSalida);
+                transactionSalida.commit();
                 return true;
         }
 

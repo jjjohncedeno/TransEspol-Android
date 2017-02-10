@@ -19,15 +19,7 @@ public class ComentarioRepository {
     }
 
     private ComentarioRepository() {
-        saveObjetos(new Comentario("Se me perdio" , "Por ahi"));
-        saveObjetos(new Comentario("Se me perdio" , "Por ahi"));
-        saveObjetos(new Comentario("Se me perdio" , "Por ahi"));
-        saveObjetos(new Comentario("Se me perdio" , "Por ahi"));
-        saveObjetos(new Comentario("Se me perdio" , "Por ahi"));
-        saveObjetos(new Comentario("Se me perdio" , "Por ahi"));
-        saveObjetos(new Comentario("Se me perdio" , "Por ahi"));
-        saveObjetos(new Comentario("Se me perdio" , "Por ahi"));
-        saveObjetos(new Comentario("Se me perdio" , "Por ahi"));
+
     }
 
     private void saveObjetos(Comentario op) {

@@ -13,6 +13,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import edu.espol.transespol.R;
@@ -38,17 +50,14 @@ public class ObjetoFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    String url = "http://transespol.herokuapp.com/api/objetos";
 
     ListView objetosLista;
     ArrayAdapter<ObjetoPerdido> objetoAdapter;
     ArrayList<ObjetoPerdido> objetos = new ArrayList<ObjetoPerdido>();
 
     public ObjetoFragment() {
-        this.objetos.add(new ObjetoPerdido("Paraguas encontrado en la unidad del Sur, horario 11:30 am", "1", "Por ahi", "Paraguas"));
-        this.objetos.add(new ObjetoPerdido("Celular encontrado en la unidad de albanborja.", "1", "Por ahi", "Celular"));
-        this.objetos.add(new ObjetoPerdido("Libro encontrado en la parada de bus de Mecánica", "1", "Por ahi", "Libro"));
-        this.objetos.add(new ObjetoPerdido("Tomatodo encontrado en el bus del sur", "1", "Por ahi", "Tomatodo"));
+
         // Required empty public constructor
     }
 
@@ -76,7 +85,7 @@ public class ObjetoFragment extends Fragment {
         // Inicializar el adaptador con la fuente de datos.
         objetoAdapter = new ObjetoAdapter(getActivity(),
                 this.objetos);
-
+        sendRequest();
         //Relacionando la lista con el adaptador
         objetosLista.setAdapter(objetoAdapter);
 
@@ -98,6 +107,45 @@ public class ObjetoFragment extends Fragment {
         return root;
     }
 
+    private void sendRequest(){
 
+        StringRequest stringRequest = new StringRequest(url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //showJSON(response);
+                        parseJSON(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+    }
+
+    public void parseJSON(String json){
+        this.objetos.clear();
+        JSONObject jsonObject=null;
+        try {
+
+            JSONArray objetos = new JSONArray(json);
+            for(int i=0;i<objetos.length();i++){
+                JSONObject jo = objetos.getJSONObject(i);
+                String id = jo.getString("_id");
+                String nombre = jo.getString("nombre");
+                String descripcion = jo.getString("descripcion");
+                this.objetos.add(new ObjetoPerdido(descripcion, id, "por ahi", nombre));
+            }
+            objetoAdapter.notifyDataSetChanged();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

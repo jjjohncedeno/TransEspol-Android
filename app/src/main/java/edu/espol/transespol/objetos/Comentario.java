@@ -6,10 +6,12 @@ package edu.espol.transespol.objetos;
 public class Comentario {
     private String id;
     private String mensaje;
+    private String nombre;
 
-    public Comentario(String mensaje, String id) {
+    public Comentario(String mensaje, String id, String nombre) {
         this.mensaje = mensaje;
         this.id = id;
+        this.nombre = nombre;
     }
 
     public String getId() {

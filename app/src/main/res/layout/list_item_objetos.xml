@@ -12,13 +12,13 @@
     android:paddingTop="2dp">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
         android:background="@drawable/post_border_style"
         android:orientation="vertical" >
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
             android:background="@drawable/post_border_background"
@@ -47,7 +47,7 @@
                 android:layout_below="@+id/txtNombre"
                 android:text="Cargo"
                 android:maxLines="4"
-                tools:text="Encontrado por ahi no se donde, pero alguien te dira donde mismo fue." />
+                tools:text="Encontrado por." />
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

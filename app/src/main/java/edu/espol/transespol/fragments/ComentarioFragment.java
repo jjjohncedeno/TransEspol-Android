@@ -14,12 +14,23 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import edu.espol.transespol.R;
 import edu.espol.transespol.Repositories.ComentarioRepository;
 import edu.espol.transespol.adaptadores.ComentarioAdapter;
 import edu.espol.transespol.objetos.Comentario;
+import edu.espol.transespol.objetos.ObjetoPerdido;
 
 /**
  * Created by john on 5/02/17.
@@ -39,11 +50,10 @@ public class ComentarioFragment extends Fragment {
     ArrayAdapter<Comentario> comentarioAdapter;
     ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
     FloatingActionButton btnAdd;
+
+    String url = "http://transespol.herokuapp.com/api/comentarios";
+
     public ComentarioFragment() {
-        this.comentarios.add(new Comentario("No me gusta el servicio que ofrecen." , "John Cedeño"));
-        this.comentarios.add(new Comentario("Deberian incorporar más unidades, en las rutas al norte y al sur." , "Maria Cuenca"));
-        this.comentarios.add(new Comentario("Yo solo queria comentar algo para ser famoso." , "Juan Cuenca"));
-        this.comentarios.add(new Comentario("La verdad no se por que estoy comentando por aqui :D" , "Anonimo"));
         // Required empty public constructor
     }
 
@@ -71,7 +81,7 @@ public class ComentarioFragment extends Fragment {
         // Inicializar el adaptador con la fuente de datos.
         comentarioAdapter = new ComentarioAdapter(getActivity(),
                 this.comentarios);
-
+        sendRequest();
         //Relacionando la lista con el adaptador
         mensajesLista.setAdapter(comentarioAdapter);
 
@@ -79,7 +89,7 @@ public class ComentarioFragment extends Fragment {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext()  );
                 builder.setTitle("Title");
 
                 // Set up the input
@@ -92,6 +102,7 @@ public class ComentarioFragment extends Fragment {
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                         Toast.makeText(getContext(), input.getText().toString(), Toast.LENGTH_LONG).show();
                     }
                 });
@@ -107,4 +118,48 @@ public class ComentarioFragment extends Fragment {
         });
         return root;
     }
+
+    private void sendRequest(){
+
+        StringRequest stringRequest = new StringRequest(url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //showJSON(response);
+                        parseJSON(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+    }
+
+    public void parseJSON(String json){
+        this.comentarios.clear();
+        JSONObject jsonObject=null;
+        try {
+            JSONArray objetos = new JSONArray(json);
+            for(int i=0;i<objetos.length();i++){
+                JSONObject jo = objetos.getJSONObject(i);
+                String id = jo.getString("_id");
+                String nombre = jo.getString("nombre");
+                String descripcion = jo.getString("descripcion");
+                this.comentarios.add(new Comentario(descripcion, id, nombre));
+            }
+
+            comentarioAdapter.notifyDataSetChanged();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    
+
 }
