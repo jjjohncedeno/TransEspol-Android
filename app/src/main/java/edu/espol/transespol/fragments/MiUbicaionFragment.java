@@ -43,7 +43,7 @@ public class MiUbicaionFragment extends Fragment {
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
-        mWebView.loadUrl("https://transespol.herokuapp.com/rutaEstudianteEntrada");
+        mWebView.loadUrl("http://transespol.herokuapp.com/rutaCorta");
         return root;
     }
 }
