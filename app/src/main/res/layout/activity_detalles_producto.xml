@@ -2,38 +2,56 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@color/colorPrimary"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="8dp"
+        android:background="@drawable/post_border_style"
+        android:orientation="vertical" >
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre del Producto"
+            android:id="@+id/txtNombreProd"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="20dp"
+            android:textStyle="normal|italic" />
 
-    <TextView
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nombre del Producto"
-        android:id="@+id/txtNombreProd"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textSize="20dp" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:padding="20dp"
+            android:id="@+id/rlyImagen"
+            android:layout_below="@+id/txtNombreProd"
+            android:background="@drawable/post_border_background"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical" >
+            <ImageView
+                android:layout_marginTop="20dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:id="@+id/imageProd"
+                android:src="@drawable/ic_menu_gallery"
+                android:layout_gravity="center_horizontal"/>
+        </RelativeLayout>
 
-    <ImageView
-        android:layout_marginTop="20dp"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:id="@+id/imageProd"
-        android:src="@drawable/ic_menu_gallery"
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/txtNombreProd"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:layout_below="@+id/imageProd"
-        android:id="@+id/txtDetalles"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="50dp"
+            android:text="El producto fue hayado por alla fuera botado donde yo no se pero ya pos solo es para mostrar"
+            android:layout_below="@+id/rlyImagen"
+            android:id="@+id/txtDetalles"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textStyle="italic" />
+    </RelativeLayout>
 
 </RelativeLayout>

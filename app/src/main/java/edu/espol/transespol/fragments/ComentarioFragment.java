@@ -1,12 +1,18 @@
 package edu.espol.transespol.fragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -32,7 +38,7 @@ public class ComentarioFragment extends Fragment {
     ListView mensajesLista;
     ArrayAdapter<Comentario> comentarioAdapter;
     ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
-
+    FloatingActionButton btnAdd;
     public ComentarioFragment() {
         this.comentarios.add(new Comentario("No me gusta el servicio que ofrecen." , "John Cedeño"));
         this.comentarios.add(new Comentario("Deberian incorporar más unidades, en las rutas al norte y al sur." , "Maria Cuenca"));
@@ -69,6 +75,36 @@ public class ComentarioFragment extends Fragment {
         //Relacionando la lista con el adaptador
         mensajesLista.setAdapter(comentarioAdapter);
 
+        btnAdd = (FloatingActionButton) root.findViewById(R.id.fab);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Title");
+
+                // Set up the input
+                final EditText input = new EditText(getContext());
+                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                builder.setView(input);
+
+                // Set up the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(), input.getText().toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+            }
+        });
         return root;
     }
 }
