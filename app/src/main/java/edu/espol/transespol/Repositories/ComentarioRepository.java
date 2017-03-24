@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import edu.espol.transespol.objetos.Comentario;
-import edu.espol.transespol.objetos.ObjetoPerdido;
 
 /**
  * Created by john on 1/02/17.

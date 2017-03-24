@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,14 +26,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import edu.espol.transespol.R;
-import edu.espol.transespol.Repositories.ComentarioRepository;
 import edu.espol.transespol.adaptadores.ComentarioAdapter;
 import edu.espol.transespol.objetos.Comentario;
-import edu.espol.transespol.objetos.ObjetoPerdido;
 
 /**
  * Created by john on 5/02/17.
@@ -49,13 +47,14 @@ public class ComentarioFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    Date hora= new Date();
 
     ListView mensajesLista;
     static ArrayAdapter<Comentario> comentarioAdapter;
     static ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
     FloatingActionButton btnAdd;
 
-    String url = "http://transespol.herokuapp.com/api/comentarios";
+    String url = "http://tranespol.herokuapp.com/api/comentarios";
 
     public ComentarioFragment() {
         // Required empty public constructor
@@ -155,7 +154,8 @@ public class ComentarioFragment extends Fragment {
 
                 String nombre = jo.getString("nombre");
                 String descripcion = jo.getString("descripcion");
-                this.comentarios.add(new Comentario(descripcion, "1234", nombre));
+
+                this.comentarios.add(new Comentario(descripcion, "1234", nombre,null));
 
             }
 
@@ -169,13 +169,14 @@ public class ComentarioFragment extends Fragment {
     private void postComentario(String mensaje){
         final String username = "jjcedeno";
         final String coment = mensaje;
+        final String fecha =(hora.getYear()+1900)+"-"+(hora.getMonth()+1)+"-"+hora.getDate()+"T00:00:00.000Z";
 
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        ComentarioFragment.comentarios.add(new Comentario(coment, "1231", "jjcedeno"));
+                        ComentarioFragment.comentarios.add(new Comentario(coment, "1231", "jjcedeno",fecha));
                         ComentarioFragment.comentarioAdapter.notifyDataSetChanged();
                         //Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
                     }
@@ -191,6 +192,7 @@ public class ComentarioFragment extends Fragment {
                 Map<String,String> params = new HashMap<String, String>();
                 params.put("nombre",username);
                 params.put("descripcion",coment);
+                params.put("fecha",fecha);
                 return params;
             }
 

@@ -3,12 +3,10 @@ package edu.espol.transespol.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import edu.espol.transespol.R;
-import edu.espol.transespol.fragments.AcercaDeFragment;
 
 /**
  * Created by john on 5/02/17.

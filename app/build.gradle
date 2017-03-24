@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
         applicationId "edu.espol.transespol"
@@ -31,4 +31,5 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.volley:volley:1.0.0'
 
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }

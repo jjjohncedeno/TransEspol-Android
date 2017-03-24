@@ -1,23 +1,22 @@
 package edu.espol.transespol.fragments;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -28,9 +27,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import edu.espol.transespol.R;
-import edu.espol.transespol.Repositories.ObjetoPerdidoRepository;
 import edu.espol.transespol.activities.DetallesActivity;
-import edu.espol.transespol.activities.PrincipalActivity;
 import edu.espol.transespol.adaptadores.ObjetoAdapter;
 import edu.espol.transespol.objetos.ObjetoPerdido;
 
@@ -50,8 +47,9 @@ public class ObjetoFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    String url = "http://transespol.herokuapp.com/api/objetos";
+    String url = "http://tranespol.herokuapp.com/api/objetos";
 
+    EditText nameFilter;
     ListView objetosLista;
     ArrayAdapter<ObjetoPerdido> objetoAdapter;
     ArrayList<ObjetoPerdido> objetos = new ArrayList<ObjetoPerdido>();
@@ -77,22 +75,20 @@ public class ObjetoFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_objetos, container, false);
+        final View root = inflater.inflate(R.layout.fragment_objetos, container, false);
         objetosLista = (ListView) root.findViewById(R.id.objetos_lista);
+        nameFilter = (EditText) root.findViewById(R.id.editText);
         // Inicializar el adaptador con la fuente de datos.
-        objetoAdapter = new ObjetoAdapter(getActivity(),
-                this.objetos);
+        objetoAdapter = new ObjetoAdapter(getActivity(), this.objetos);
         sendRequest();
         //Relacionando la lista con el adaptador
         objetosLista.setAdapter(objetoAdapter);
 
         objetosLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 ObjetoPerdido item = objetos.get(position);
                 Intent i = new Intent(getActivity(), DetallesActivity.class);
@@ -103,8 +99,42 @@ public class ObjetoFragment extends Fragment {
             }
         });
 
+        nameFilter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(charSequence.toString().equals(" ")){
+                    //reseteo la lista
+                    sendRequest();
+                }else{
+                    //perfom search
+                    searchItem(charSequence.toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
 
         return root;
+    }
+
+    private void searchItem(String s) {
+        int i;
+        for( i=0; i< objetosLista.getAdapter().getCount();i++){
+            if(!objetos.get(i).getNombre().contains(s)){
+                objetos.remove(objetos.get(i));
+            }
+            objetoAdapter.notifyDataSetChanged();
+        }
     }
 
     private void sendRequest(){
@@ -114,6 +144,7 @@ public class ObjetoFragment extends Fragment {
                     @Override
                     public void onResponse(String response) {
                         //showJSON(response);
+
                         parseJSON(response);
                     }
                 },
@@ -139,7 +170,9 @@ public class ObjetoFragment extends Fragment {
                 String id = jo.getString("_id");
                 String nombre = jo.getString("nombre");
                 String descripcion = jo.getString("descripcion");
-                this.objetos.add(new ObjetoPerdido(descripcion, id, "por ahi", nombre));
+                String imagen = jo.getString("imagen");
+                this.objetos.add(new ObjetoPerdido(descripcion, id, imagen, nombre));
+
             }
             objetoAdapter.notifyDataSetChanged();
 
