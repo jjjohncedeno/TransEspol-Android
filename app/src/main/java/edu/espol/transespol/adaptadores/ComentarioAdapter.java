@@ -38,6 +38,7 @@ public class ComentarioAdapter extends ArrayAdapter<Comentario> {
         // Referencias UI.
         TextView name = (TextView) convertView.findViewById(R.id.txtNombreComent);
         TextView mensaje = (TextView) convertView.findViewById(R.id.txtTextoComent);
+        TextView fecha = (TextView) convertView.findViewById(R.id.txtFechaComent);
 
         // Lead actual.
         Comentario op = getItem(position);
@@ -46,6 +47,7 @@ public class ComentarioAdapter extends ArrayAdapter<Comentario> {
         //Glide.with(getContext()).load(op.getImage()).into(avatar);
         name.setText(op.getNombre());
         mensaje.setText(op.getMensaje());
+        fecha.setText(op.getFecha());
 
         return convertView;
     }

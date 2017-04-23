@@ -25,7 +25,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,10 +44,12 @@ public class ComentarioFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    //private static final String ARG_PARAM3 = "param3";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    //private String mParam3;
 
     Date hora= new Date();
 
@@ -72,6 +76,7 @@ public class ComentarioFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            //mParam3 = getArguments().getString(ARG_PARAM3);
         }
     }
 
@@ -154,8 +159,10 @@ public class ComentarioFragment extends Fragment {
 
                 String nombre = jo.getString("nombre");
                 String descripcion = jo.getString("descripcion");
+                String fecha = jo.getString("fecha");
+                String hora = jo.getString("hora");
 
-                this.comentarios.add(new Comentario(descripcion, "1234", nombre,null));
+                this.comentarios.add(new Comentario("1234", nombre, descripcion, fecha, hora));
 
             }
 
@@ -169,14 +176,20 @@ public class ComentarioFragment extends Fragment {
     private void postComentario(String mensaje){
         final String username = "jjcedeno";
         final String coment = mensaje;
-        final String fecha =(hora.getYear()+1900)+"-"+(hora.getMonth()+1)+"-"+hora.getDate()+"T00:00:00.000Z";
+        Date today = Calendar.getInstance().getTime();
+        SimpleDateFormat fecc=new SimpleDateFormat("yyyy-MM-dd'T00:00:00.000Z'");
+        SimpleDateFormat hora=new SimpleDateFormat("hh:mm");
+        final String folderName = fecc.format(today);
+        final String horaPost = hora.format(today);
+
+        final String fechaFalsa = "2017-03-29T00:00:00.000Z";
 
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        ComentarioFragment.comentarios.add(new Comentario(coment, "1231", "jjcedeno",fecha));
+                        ComentarioFragment.comentarios.add(new Comentario("1231", "lumiandr", coment, folderName, horaPost));
                         ComentarioFragment.comentarioAdapter.notifyDataSetChanged();
                         //Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
                     }
@@ -190,9 +203,10 @@ public class ComentarioFragment extends Fragment {
             @Override
             protected Map<String,String> getParams(){
                 Map<String,String> params = new HashMap<String, String>();
-                params.put("nombre",username);
+                params.put("nombre","lumiandr");
                 params.put("descripcion",coment);
-                params.put("fecha",fecha);
+                params.put("fecha", folderName);
+                params.put("hora",horaPost);
                 return params;
             }
 

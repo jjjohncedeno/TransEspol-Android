@@ -1,26 +1,39 @@
 package edu.espol.transespol.adaptadores;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import edu.espol.transespol.R;
+import edu.espol.transespol.Repositories.ObjetoPerdidoRepository;
+import edu.espol.transespol.fragments.ObjetoFragment;
 import edu.espol.transespol.objetos.ObjetoPerdido;
 
 /**
  * Created by john on 1/02/17.
  */
-public class ObjetoAdapter extends ArrayAdapter<ObjetoPerdido> {
+public class ObjetoAdapter extends ArrayAdapter<ObjetoPerdido> implements Filterable {
+
+
 
     public ObjetoAdapter(Context context, List<ObjetoPerdido> objects) {
         super(context, 0, objects);
+
     }
+
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -51,4 +64,6 @@ public class ObjetoAdapter extends ArrayAdapter<ObjetoPerdido> {
 
         return convertView;
     }
+
+
 }

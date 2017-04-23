@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -51,8 +52,10 @@ public class ObjetoFragment extends Fragment {
 
     EditText nameFilter;
     ListView objetosLista;
-    ArrayAdapter<ObjetoPerdido> objetoAdapter;
-    ArrayList<ObjetoPerdido> objetos = new ArrayList<ObjetoPerdido>();
+    SearchView sb;
+    static ArrayAdapter<ObjetoPerdido> objetoAdapter;
+    static ArrayList<ObjetoPerdido> objetos = new ArrayList<ObjetoPerdido>();
+    static ArrayList<ObjetoPerdido> objetostmp = new ArrayList<ObjetoPerdido>();
 
     public ObjetoFragment() {
 
@@ -79,7 +82,13 @@ public class ObjetoFragment extends Fragment {
         // Inflate the layout for this fragment
         final View root = inflater.inflate(R.layout.fragment_objetos, container, false);
         objetosLista = (ListView) root.findViewById(R.id.objetos_lista);
+        //posible filtrasdo
+        objetosLista.setTextFilterEnabled(true);
+        objetosLista.setAdapter(objetoAdapter);
+        //
         nameFilter = (EditText) root.findViewById(R.id.editText);
+
+
         // Inicializar el adaptador con la fuente de datos.
         objetoAdapter = new ObjetoAdapter(getActivity(), this.objetos);
         sendRequest();
@@ -95,10 +104,10 @@ public class ObjetoFragment extends Fragment {
                 i.putExtra("nombre", item.getNombre());
                 i.putExtra("detalles", item.getDescripcion());
                 startActivity(i);
+                //Toast.makeText(getApplicationContext(), adapter.getItem(position), Toast.LENGTH_SHORT).show();
 
             }
         });
-
         nameFilter.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -107,12 +116,18 @@ public class ObjetoFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(charSequence.toString().equals(" ")){
-                    //reseteo la lista
+
+                if(charSequence.toString().length()==0){
+                    // Inicializar el adaptador con la fuente de datos.
+                    objetoAdapter = new ObjetoAdapter(getActivity(), objetos);
                     sendRequest();
+                    //Relacionando la lista con el adaptador
+                    objetosLista.setAdapter(objetoAdapter);
+                    objetoAdapter.notifyDataSetChanged();
                 }else{
                     //perfom search
                     searchItem(charSequence.toString());
+                    ObjetoFragment.objetoAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -122,18 +137,17 @@ public class ObjetoFragment extends Fragment {
             }
         });
 
-
-
         return root;
     }
 
     private void searchItem(String s) {
         int i;
-        for( i=0; i< objetosLista.getAdapter().getCount();i++){
-            if(!objetos.get(i).getNombre().contains(s)){
+        for( i=0; i< objetos.size();i++){
+            if(!objetos.get(i).getNombre().toLowerCase().contains(s)){
                 objetos.remove(objetos.get(i));
             }
             objetoAdapter.notifyDataSetChanged();
+
         }
     }
 

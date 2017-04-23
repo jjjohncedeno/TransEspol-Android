@@ -15,6 +15,7 @@
 
     <ListView
         android:id="@+id/objetos_lista"
+        android:layout_marginTop="45px"
         android:layout_width="fill_parent"
         android:layout_height="403dp"
         android:layout_gravity="center"

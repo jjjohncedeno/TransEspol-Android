@@ -41,6 +41,14 @@
                 tools:text="Encontrado por ahi no se donde, pero alguien te dira donde mismo fue."
                 android:layout_below="@+id/txtNombreComent"
                 android:layout_alignParentStart="true" />
+            <TextView
+                android:id="@+id/txtFechaComent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="fecha"
+                android:maxLines="4"
+                android:layout_below="@+id/txtTextoComent"
+                android:layout_alignParentStart="true" />
 
         </RelativeLayout>
     </RelativeLayout>
